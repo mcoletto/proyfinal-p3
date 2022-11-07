@@ -11,10 +11,20 @@ class Profile extends Component {
     }
 
     
+    logout() {
+        auth.signOut()
+        this.props.navigation.navigate('Login')
+    }
+    
     render(){
         return(
+            
             <View>
                 <Text>Estas en la Profile</Text>
+                <TouchableOpacity onPress={() => this.logout()}>
+                     <Text>Logout</Text>   
+                </TouchableOpacity>
+
             </View>
         )
     }

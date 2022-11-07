@@ -12,6 +12,14 @@ class Login extends Component {
         }
     }
 
+    componentDidMount(){
+        auth.onAuthStateChanged( user => {
+            if(user != null){
+                this.props.navigation.navigate('HomeMenu')
+            }
+        })
+    }
+        
     login(){
         auth.signInWithEmailAndPassword(this.state.email,this.state.password)
         .then( res => 

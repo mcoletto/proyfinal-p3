@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
 import { auth } from '../firebase/config';
+import FormPost from '../Components/formPost'
+
 
 class NewPost extends Component {
     constructor(){
@@ -14,7 +16,8 @@ class NewPost extends Component {
     render(){
         return(
             <View>
-                <Text>Estas en la NewPost</Text>
+                <Text>Crear un Post</Text>
+                <FormPost/>
             </View>
         )
     }
@@ -23,3 +26,7 @@ class NewPost extends Component {
 
 
 export default NewPost
+
+const styles = StyleSheet.create({
+   
+  });
