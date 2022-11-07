@@ -15,37 +15,64 @@ class Register extends Component {
         }
     }
 
+    onSubmit(){
+        console.log('si')
+        this.registerUser(this.state.email, this.state.password);
+    }
+
+    registerUser(email, pass){
+        //Registrar en firebase y si el reigstro sale bien redireccionar a Home
+        auth.createUserWithEmailAndPassword(email, pass)
+            .then( res => {
+                //equivalente a res.redirect
+                db.collection('users').add({
+                    owner:email,
+                    username:this.state.user,
+                    bio:this.state.bio,
+                    //falta foto
+                    createdAt:Date.now()  
+                  })
+                this.props.navigation.navigate('Login')
+            })
+            .catch(error =>{
+                console.log(error);
+                this.setState({error:error.message})
+            })
+    }
+
 
     render (){
         return (
-            <View style={styles.container}>
+            <View>
                 <Text>Registrate</Text>
                 <View>
-                    <TextInput style={styles.field}
+                    <TextInput
                         placeholder= 'email' 
                         keyboardType= 'email-address' 
                         onChangeText= {text => this.setState({email:text})} 
                         value= {this.state.email} 
                     />
-                    <TextInput style={styles.field}
+                    <TextInput 
                         placeholder= 'password'
                         keyboardType= 'default'
                         secureTextEntry={true}
                         onChangeText= {text => this.setState({password:text})}
                         value= {this.state.password}
                     />
-                    <TextInput style={styles.field}
+                    <TextInput 
                         placeholder= 'username'
                         keyboardType= 'default'
                         onChangeText= {text => this.setState({user:text})}
                         value= {this.state.user}
                     />
-                    <TextInput style={styles.field}
+                    <TextInput 
                         placeholder= 'bio'
                         keyboardType= 'default'
                         onChangeText= {text => this.setState({bio:text})}
                         value= {this.state.bio}
                     />
+
+                    <Text> {this.state.error} </Text>
                     
                     <TouchableOpacity onPress={() => this.onSubmit()}>
                         <Text> Register </Text>
