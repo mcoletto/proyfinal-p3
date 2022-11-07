@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity} from 'react-native';
+import { auth } from '../firebase/config';
 
 class Login extends Component {
     constructor(){
@@ -7,11 +8,23 @@ class Login extends Component {
         this.state = {
             email:'',
             password:'',
-            errors:''
+            error:'',
         }
     }
 
-
+    login(){
+        auth.signInWithEmailAndPassword(this.state.email,this.state.password)
+        .then( res => 
+            {   
+                this.setState({email:'',password:'',error:'Logueado correctamente'})
+                this.props.navigation.navigate('HomeMenu')
+            })
+        .catch(error => {
+            console.log(error);
+            this.setState({error:error.message})
+        })
+    }
+    
     render(){
         return(
             <View> 
@@ -26,13 +39,15 @@ class Login extends Component {
                     <TextInput  
                         placeholder='password'
                         keyboardType='default'
+                        secureTextEntry={true}
                         onChangeText={ text => this.setState({password:text}) }
                         value={this.state.password}
                     />  
 
-                    <TouchableOpacity onPress={()=>this.login(this.state.email, this.state.password)}>
+                    <TouchableOpacity onPress={()=>this.login()}>
                         <Text>Ingresar</Text>
                     </TouchableOpacity>
+                    <Text> {this.state.error} </Text>
                     <Text onPress={ () => this.props.navigation.navigate('Register')} >Ir a Registro</Text>
                 </View>
             </View>
