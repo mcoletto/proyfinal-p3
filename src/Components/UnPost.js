@@ -14,12 +14,12 @@ class UnPost extends Component {
         super(props)
         this.state = {
             usuario: [],
-            texto: 'prueba'
+            username: ''
         }
     }
 
     componentDidMount(){
-        console.log(this.props.post.id);
+        //console.log(this.props.post.id);
         db.collection('users').where('owner', '==', this.props.post.data.owner).onSnapshot(
             docs => {
                 let unUsuario = []
@@ -30,18 +30,19 @@ class UnPost extends Component {
                         data:doc.data()
                     })
                 })
-                console.log(unUsuario);
+                //console.log(unUsuario);
                 this.setState({
-                    usuario: unUsuario
-                }, ()=> console.log(this.state.usuario[0].data))
+                    usuario: unUsuario[0],
+                    username: unUsuario[0].data.username
+                }, ()=> console.log(this.state))
             })
     }
 
     render(){
-        console.log(this.state.usuario[0]);
+        //console.log(this.state.usuario[0]);
         return(
                 <>
-
+                    <Text>{this.state.username}</Text>
                     <Image 
                         style={styles.image}
                         source={{uri:this.props.post.data.photo}}
