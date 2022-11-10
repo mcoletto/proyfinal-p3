@@ -16,7 +16,6 @@ class NewPost extends Component {
     render(){
         return(
             <View>
-                <Text>Crear un Post</Text>
                 <FormPost/>
             </View>
         )

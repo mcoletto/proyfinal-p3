@@ -62,18 +62,19 @@ class FormPost extends Component {
                 {
                     this.state.url == '' ? 
                     <MyCamera onImageUpload={(url) => this.onImageUpload(url)}/> :
-                    <Text>Foto seleccionada con exito!</Text>
+                    <View>
+                        <Text>Foto seleccionada con exito!</Text>
+                        <TextInput
+                            placeholder='Ingrese el texto del post'
+                            onChangeText ={text => this.setState( { text:text } )}
+                            value = { this.state.text }
+                        />
+                        <Text style={styles.error}> {this.state.error} </Text>
+                        <TouchableOpacity onPress={() => this.crearPost()}>
+                            <Text>Crear Post!</Text>   
+                        </TouchableOpacity>
+                    </View>
                 }
-                <TextInput
-                placeholder='Ingrese el texto del post'
-                onChangeText ={text => this.setState( { text:text } )}
-                value = { this.state.text }
-                />
-                <Text style={styles.error
-                }> {this.state.error} </Text>
-                <TouchableOpacity onPress={() => this.crearPost()}>
-                    <Text>Crear Post!</Text>   
-              </TouchableOpacity>
             </View>
         )
     }
@@ -85,7 +86,6 @@ export default FormPost
 
 const styles = StyleSheet.create({
     container: {
-     backgroundColor:'#5267e3'
     },
     error: {
         color:'red'

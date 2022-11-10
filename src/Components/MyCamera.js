@@ -74,7 +74,6 @@ class MyCamera extends Component{
                             ref={metodosDeCamara => this.metodosDeCamara = metodosDeCamara }
                         />
                         <TouchableOpacity style={styles.button} onPress={()=>this.sacarFoto()}>
-                            <Text>Sacar foto</Text>
                         </TouchableOpacity>
                     </View>
                     ://Sino la showCamera = False, signifca que ya saco la foto. Entonces le tenemos que mostrar la foto y el usuario debe elegir si aceptarla o rechazarla
@@ -103,15 +102,21 @@ class MyCamera extends Component{
 
 const styles = StyleSheet.create({
     cameraBody: {
-        height: '80vh',
-    },
+        height: '70vh',
+        margin:10,
+        borderRadius:90
+    },  
     button:{
-        height: '20vh',
-        borderColor: '#ccc',
+        height: 50,
+        width: 50,
+        borderRadius: 50,
+        display: 'inline-block',
+        backgroundColor:'rgb(75, 132, 255)'
+       /*  borderColor: '#ccc',
         borderWidth: 1,
         padding: 5,
         borderRadius: 4,
-        marginTop: 20
+        marginTop: 20 */
     },
     preview:{
         height:'40vh'
