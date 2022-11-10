@@ -5,7 +5,7 @@ import { NavigationContainer, TabActions } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet } from 'react-native-web';
 import Home from '../screens/Home'
-import Profile from '../screens/Profile'
+import Profile from '../screens/MyProfile'
 import NewPost from '../screens/NewPost'
 
 
@@ -42,7 +42,9 @@ class UnPost extends Component {
         //console.log(this.state.usuario[0]);
         return(
                 <>
+                <TouchableOpacity onPress={()=> this.props.navigation.navigate('Profile', {mail: this.state.usuario.data.owner})}>
                     <Text>{this.state.username}</Text>
+                </TouchableOpacity>
                     <Image 
                         style={styles.image}
                         source={{uri:this.props.post.data.photo}}

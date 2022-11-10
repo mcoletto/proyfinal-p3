@@ -5,7 +5,7 @@ import { db, auth } from '../firebase/config';
 
 import UnPost from '../Components/UnPost';
 
-class Profile extends Component {
+class MyProfile extends Component {
     constructor(){
         super()
         this.state = {
@@ -23,7 +23,7 @@ class Profile extends Component {
     }
 
     obtenerPosteos(){
-        db.collection('posts').where('owner', '==', this.props.route.params.mail).orderBy('createdAt', 'desc').onSnapshot(
+        db.collection('posts').where('owner', '==', auth.currentUser.email).orderBy('createdAt', 'desc').onSnapshot(
             docs =>{
                 let posts = [];
                 docs.forEach (doc => {
@@ -41,7 +41,7 @@ class Profile extends Component {
     }
 
     obtenerUsuario(){
-        db.collection('users').where('owner', '==', this.props.route.params.mail).onSnapshot(
+        db.collection('users').where('owner', '==', auth.currentUser.email).onSnapshot(
             docs =>{
                 let usuario = [];
                 docs.forEach (doc => {
@@ -65,11 +65,11 @@ class Profile extends Component {
     }
     
     render(){
-        console.log(this.props.route.params.mail);
+        //console.log(this.state.usuario.data.username);
         return(
             
             <View>
-                <Text>Este es el perfil de {this.state.username}</Text>
+                <Text>Bienvenido a tu perfil, {this.state.username}</Text>
                 
                 {this.state.loading1 && this.state.loading2 ? <ActivityIndicator size='large' color='green' /> : 
                 <FlatList
@@ -90,4 +90,4 @@ class Profile extends Component {
 }
 
 
-export default Profile
+export default MyProfile
