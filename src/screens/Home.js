@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity} from 'react-native';
+import { StyleSheet ,View, Text, TextInput, TouchableOpacity} from 'react-native';
 import { ActivityIndicator, FlatList } from 'react-native-web';
 import { db, auth } from '../firebase/config';
 import UnPost from '../Components/UnPost';
@@ -36,21 +36,27 @@ class Home extends Component {
     
     render(){
         return(
-            <View>
+            <View style={styles.scroll}>
                 <Text>Estas en la home</Text>
                 {this.state.loading ? <ActivityIndicator size='large' color='green' /> : 
-                <FlatList
-                    data={this.state.posteos}
-                    keyExtractor={item => item.id.toString()}
-                    renderItem={({item}) => <UnPost post={item} navigation={this.props.navigation}/>}
-                />
-                
+                    <FlatList
+                        data={this.state.posteos}
+                        keyExtractor={item => item.id.toString()}
+                        renderItem={({item}) => <UnPost post={item} navigation={this.props.navigation}/>}
+                    />
                 }
             </View>
         )
     }
     
 }
+
+const styles = StyleSheet.create({
+    scroll: {
+      flex: 1,
+    },
+  });
+  
 
 
 export default Home

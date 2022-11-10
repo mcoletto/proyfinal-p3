@@ -58,11 +58,6 @@ class Profile extends Component {
             }
         )
     }
-
-    logout() {
-        auth.signOut()
-        this.props.navigation.navigate('Login')
-    }
     
     render(){
         console.log(this.props.route.params.mail);
@@ -79,10 +74,6 @@ class Profile extends Component {
                 />
                 
                 }
-                <TouchableOpacity onPress={() => this.logout()}>
-                    <Text>Logout</Text>   
-                </TouchableOpacity>
-
             </View>
         )
     }
