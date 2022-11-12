@@ -4,7 +4,7 @@ import Home from '../screens/Home'
 
 const Stack = createNativeStackNavigator();
 
-export default function principalMenu () {
+export default function PrincipalMenu () {
     return (
         <Stack.Navigator>
           <Stack.Screen name='Home' component = {Home} options={{headerShown:false}} />

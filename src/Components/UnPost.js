@@ -14,12 +14,19 @@ class UnPost extends Component {
         super(props)
         this.state = {
             usuario: [],
-            username: ''
+            username: '',
+            nroDeLikes: this.props.post.data.likes.length,
+            userLike:false
         }
     }
 
     componentDidMount(){
         //console.log(this.props.post.id);
+        if(this.props.post.data.likes.includes(auth.currentUser.email)){ 
+            this.setState({
+                userLike:true
+            })
+        }
         db.collection('users').where('owner', '==', this.props.post.data.owner).onSnapshot(
             docs => {
                 let unUsuario = []
@@ -38,6 +45,37 @@ class UnPost extends Component {
             })
     }
 
+    like(){
+        db.collection('posts')
+            .doc(this.props.post.id) 
+            .update({
+                likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email) 
+            })
+            .then(()=> this.setState({
+                nroDeLikes: this.state.nroDeLikes +1,
+                userLike: true, 
+                })
+            )
+            .catch(e=>console.log(e))
+    }
+
+    unlike(){
+        if(this.state.userLike === true){
+            db.collection('posts')
+            .doc(this.props.post.id) 
+            .update({
+                likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email) 
+            })
+            .then(()=> this.setState({
+                nroDeLikes: this.state.nroDeLikes -1,
+                userLike: false, 
+                })
+            )
+            .catch(e=>console.log(e))
+        }
+        
+    }
+
     render(){
         //console.log(this.state.usuario[0]);
         return(
@@ -51,6 +89,17 @@ class UnPost extends Component {
                         resizeMode='contain'
                     />
                     <Text>{this.props.post.data.text}</Text>
+                
+                    <Text> Cantidad de Likes: {this.state.nroDeLikes} </Text>
+                    { this.state.userLike ? 
+                    <TouchableOpacity onPress={ ()=> this.unlike() }>
+                        <Text>Unlike</Text>
+                    </TouchableOpacity>
+                    :
+                    <TouchableOpacity onPress={ ()=> this.like() }>
+                        <Text>Like</Text>
+                    </TouchableOpacity>
+                    }
                 </>
                 
             )
