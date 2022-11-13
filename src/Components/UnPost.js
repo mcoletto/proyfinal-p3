@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TextInput, TouchableOpacity} from 'react-native';
 import { db, auth } from '../firebase/config';
-import { NavigationContainer, TabActions } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet } from 'react-native-web';
-import Home from '../screens/Home'
-import Profile from '../screens/MyProfile'
-import NewPost from '../screens/NewPost'
+import firebase from 'firebase';
 
 
 class UnPost extends Component {
