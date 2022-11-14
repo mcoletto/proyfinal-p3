@@ -63,7 +63,7 @@ class MyProfile extends Component {
         auth.signOut()
         this.props.navigation.navigate('Login')
     }
-    
+
     render(){
         //console.log(this.state.usuario.data.username);
         return(
@@ -82,6 +82,7 @@ class MyProfile extends Component {
                 <TouchableOpacity onPress={() => this.logout()}>
                     <Text>Logout</Text>   
                 </TouchableOpacity>
+
 
             </View>
         )

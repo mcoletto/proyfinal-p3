@@ -96,6 +96,15 @@ class UnPost extends Component {
                         <Text>Like</Text>
                     </TouchableOpacity>
                     }
+
+                    {auth.currentUser.email == this.props.post.data.owner ?
+                    <TouchableOpacity onPress={() => console.log('coincide')}>
+                        <Text>Borrar cuenta</Text>   
+                    </TouchableOpacity> 
+                    : ''
+                    }
+
+
                 </>
                 
             )
