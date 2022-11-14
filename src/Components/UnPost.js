@@ -76,7 +76,8 @@ class UnPost extends Component {
         console.log('borrate puto');
         console.log(this.props.post.id);
         db.collection("posts").doc(this.props.post.id).delete()
-        .then(()=> this.props.navigation.navigate('Profile', {mail: this.state.usuario.data.owner}))
+        .then(()=> console.log('borrado piola!'))
+        .catch((err) => 'pifiaste algo, el error es: ' + err)
     }
 
     render(){
