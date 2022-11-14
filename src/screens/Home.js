@@ -38,6 +38,9 @@ class Home extends Component {
         return(
             <View style={styles.scroll}>
                 <Text>Estas en la home</Text>
+                <TouchableOpacity onPress={()=> this.props.navigation.navigate('Search')}>
+                    <Text>Buscar</Text>
+                </TouchableOpacity>
                 {this.state.loading ? <ActivityIndicator size='large' color='green' /> : 
                     <FlatList
                         data={this.state.posteos}
