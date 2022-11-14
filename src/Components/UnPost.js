@@ -72,6 +72,13 @@ class UnPost extends Component {
         
     }
 
+    borrarPost(){
+        console.log('borrate puto');
+        console.log(this.props.post.id);
+        db.collection("posts").doc(this.props.post.id).delete()
+        .then(()=> this.props.navigation.navigate('Profile', {mail: this.state.usuario.data.owner}))
+    }
+
     render(){
         //console.log(this.state.usuario[0]);
         return(
@@ -98,8 +105,8 @@ class UnPost extends Component {
                     }
 
                     {auth.currentUser.email == this.props.post.data.owner ?
-                    <TouchableOpacity onPress={() => console.log('coincide')}>
-                        <Text>Borrar cuenta</Text>   
+                    <TouchableOpacity onPress={() => this.borrarPost()}>
+                        <Text>Borrar post</Text>   
                     </TouchableOpacity> 
                     : ''
                     }
