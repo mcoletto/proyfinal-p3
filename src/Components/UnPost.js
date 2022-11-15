@@ -73,11 +73,10 @@ class UnPost extends Component {
     }
 
     borrarPost(){
-        console.log('borrate puto');
-        console.log(this.props.post.id);
-        db.collection("posts").doc(this.props.post.id).delete()
-        .then(()=> console.log('borrado piola!'))
-        .catch((err) => 'pifiaste algo, el error es: ' + err)
+        let bool = confirm('desea borrar el post?')
+        {bool ? db.collection("posts").doc(this.props.post.id).delete()
+        : console.log('se arrepintio');}
+        
     }
 
     render(){
