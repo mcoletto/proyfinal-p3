@@ -110,7 +110,9 @@ class UnPost extends Component {
                     </TouchableOpacity> 
                     : ''
                     }
-
+                <TouchableOpacity>
+                    <Text onPress={ () => this.props.navigation.navigate('Comments')} >comentarios</Text>
+                </TouchableOpacity>
 
                 </>
                 
