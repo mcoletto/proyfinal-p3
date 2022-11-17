@@ -29,7 +29,6 @@ class Home extends Component {
                     posteos: posts,
                     loading: false
                 })
-                console.log(this.state)
             }
         )
     }
@@ -37,10 +36,12 @@ class Home extends Component {
     render(){
         return(
             <View style={styles.scroll}>
-                <Text style={styles.titulo}>Home</Text>
-                <TouchableOpacity onPress={()=> this.props.navigation.navigate('Search')}>
-                    <Text>Buscar</Text>
-                </TouchableOpacity>
+                <View  style = {styles.containerTitle}>
+                    <Text style={styles.titulo}>Home</Text>
+                    <TouchableOpacity onPress={()=> this.props.navigation.navigate('Search')}>
+                        <Text style={styles.buscar}>Buscar</Text>
+                    </TouchableOpacity>
+                </View> 
                 {this.state.loading ? <ActivityIndicator size='large' color='green' /> : 
                     <FlatList
                         style = {styles.container}
@@ -66,6 +67,15 @@ const styles = StyleSheet.create({
       fontWeight:'bold',
       fontFamily: "'Helvetica', 'Arial', sans-serif;",
       fontSize:40
+    },
+    containerTitle: {
+        marginLeft:30,
+        flex:0.1,
+        flexDirection:'row',
+        alignItems: 'center'
+    },
+    buscar:{
+        marginLeft:15
     }
   });
   

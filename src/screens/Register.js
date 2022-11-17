@@ -11,7 +11,7 @@ class Register extends Component {
             password: '',
             user: '',
             bio: '',
-            url: '',
+            url: 'gs://proyfinal-p3.appspot.com/photos/npPhoto.jpg',
             error: '',
             tomarFoto:false
         }
@@ -23,6 +23,7 @@ class Register extends Component {
 
     registerUser(email, pass){
         //Registrar en firebase y si el reigstro sale bien redireccionar a Home
+        console.log(this.state.url,'Fede')
         auth.createUserWithEmailAndPassword(email, pass)
             .then( res => {
                 //equivalente a res.redirect
@@ -72,7 +73,7 @@ class Register extends Component {
                         </TouchableOpacity>
                     </View>
                     :
-                    this.state.url == ''?
+                    this.state.url == 'gs://proyfinal-p3.appspot.com/photos/npPhoto.jpg'?
                         <TouchableOpacity onPress={()=> this.tomarFoto()}>
                             <Text>Tomar foto</Text>
                         </TouchableOpacity>

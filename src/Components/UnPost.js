@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TextInput, TouchableOpacity} from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity,ImageBackground} from 'react-native';
 import { db, auth } from '../firebase/config';
 import { StyleSheet } from 'react-native-web';
 import firebase from 'firebase';
@@ -12,7 +12,8 @@ class UnPost extends Component {
             usuario: [],
             username: '',
             nroDeLikes: this.props.post.data.likes.length,
-            userLike:false
+            userLike:false,
+            fotoUsuario:''
         }
     }
 
@@ -33,10 +34,10 @@ class UnPost extends Component {
                         data:doc.data()
                     })
                 })
-                //console.log(unUsuario);
                 this.setState({
                     usuario: unUsuario[0],
-                    username: unUsuario[0].data.username
+                    username: unUsuario[0].data.username,
+                    fotoUsuario: unUsuario[0].data.foto
                 })
             })
     }
@@ -56,7 +57,6 @@ class UnPost extends Component {
     }
 
     unlike(){
-        if(this.state.userLike === true){
             db.collection('posts')
             .doc(this.props.post.id) 
             .update({
@@ -68,8 +68,6 @@ class UnPost extends Component {
                 })
             )
             .catch(e=>console.log(e))
-        }
-        
     }
 
     borrarPost(){
@@ -80,49 +78,70 @@ class UnPost extends Component {
     }
 
     render(){
-        //console.log(this.state.usuario[0]);
         return(
-                <>
-                    <Image 
-                        style={styles.image}
-                        source={{uri:this.props.post.data.photo}}
-                        resizeMode='auto'
-                    />
-                    <View  style={styles.caja}>
-                    
-                    <TouchableOpacity onPress={()=> this.props.navigation.navigate('Profile', {mail: this.state.usuario.data.owner})}>
-                        <Text>{this.state.username}</Text>
-                    </TouchableOpacity>
+                <View>
+                    <ImageBackground style={styles.image} source={{uri:this.props.post.data.photo}} resizeMode='auto'>
+                        <View  style={styles.caja}>
+                            
+                            <TouchableOpacity onPress={()=> this.props.navigation.navigate('Profile', {mail: this.state.usuario.data.owner})}>
+                                <Image 
+                                    style={styles.profile}
+                                    source={{uri:this.state.fotoUsuario}}
+                                    resizeMode='auto' 
+                                />
+                            </TouchableOpacity>
 
-                    <Text>{this.props.post.data.text}</Text>
-                
-                    <Text> Cantidad de Likes: {this.state.nroDeLikes} </Text>
-                    
-                    { this.state.userLike ? 
-                    <TouchableOpacity onPress={ ()=> this.unlike() }>
-                        <Text>Unlike</Text>
-                    </TouchableOpacity>
-                    :
-                    <TouchableOpacity onPress={ ()=> this.like() }>
-                        <Text>Like</Text>
-                    </TouchableOpacity>
-                    }
+                            {/* <Text>{this.props.post.data.text}</Text>*/}
 
-                    {auth.currentUser.email == this.props.post.data.owner ?
-                    <TouchableOpacity onPress={() => this.borrarPost()}>
-                        <Text>Borrar post</Text>   
-                    </TouchableOpacity> 
-                    : ''
-                    }
-                    
-                    <TouchableOpacity>
-                        <Text onPress={ () => this.props.navigation.navigate('Comments',{idPost: this.props.post.id})} >comentarios</Text>
-                    </TouchableOpacity>
+                            
+                            <View style={styles.componentContainer}>
 
-                    </View>                    
+                                { this.state.userLike ? 
+                                <TouchableOpacity onPress={ ()=> this.unlike() }>
+                                        <Image 
+                                        style={styles.like}
+                                        source={require('../../assets/Like.svg')}
+                                        resizeMode='contain' 
+                                    />
+                                </TouchableOpacity>
+                                :
+                                <TouchableOpacity onPress={ ()=> this.like() }>
+                                    <Image 
+                                        style={styles.unlike}
+                                        source={require('../../assets/Like.svg')}
+                                        resizeMode='contain' 
+                                    />
+                                </TouchableOpacity>
+                                }
+                                <Text style={styles.number}> {this.state.nroDeLikes} </Text>
+
+                            </View>
+                            
+                            
+
+                            {/* {auth.currentUser.email == this.props.post.data.owner ?
+                            <TouchableOpacity onPress={() => this.borrarPost()}>
+                                <Text>Borrar post</Text>   
+                            </TouchableOpacity> 
+                            : ''
+                            } */}
+                            
+                            <TouchableOpacity onPress={ () => this.props.navigation.navigate('Comments',{idPost: this.props.post.id})}>
+                                <View  style={styles.componentContainer}>
+                                    <Image 
+                                        style={styles.like}
+                                        source={require('../../assets/comments.svg')}
+                                        resizeMode='contain' 
+                                    />  
+                                    <Text style={styles.number}>{this.props.post.data.comments.length}</Text>   
+                                </View>
+                            </TouchableOpacity>
+
+                        </View>      
+                    </ImageBackground>
                     
-                </>
-                
+                                  
+                </View>
             )
         }
     }
@@ -132,21 +151,51 @@ class UnPost extends Component {
             height: 500,
             width:350,
             alignSelf:'center',
-            borderBottomRightRadius: 8,
-            borderBottomLeftRadius: 8,
-            borderTopRightRadius: 8,
-            borderTopLeftRadius: 8,
+            borderRadius: 20,
+            overflow: 'hidden',
             margin:10
         },
         caja: {
-            margin:10,
-            backgroundColor:'red',
+            flexDirection: 'row',
+            height:80,
             width:250,
             alignSelf:'center',
-            borderBottomRightRadius: 5,
-            borderBottomLeftRadius: 5,
-            borderTopRightRadius: 5,
-            borderTopLeftRadius: 5,
+            borderBottomRightRadius: 15,
+            borderBottomLeftRadius: 15,
+            borderTopRightRadius: 15,
+            borderTopLeftRadius: 15,
+            alignItems: 'center',
+            justifyContent: 'space-around',
+           backgroundColor: 'rgba(217, 217, 217, 0.5)',  
+            backdropFilter: 'blur(8)',
+            position:'relative',
+            top: 400
+        },
+        profile: {
+            height:60,
+            width:60,
+            borderBottomRightRadius: 50,
+            borderBottomLeftRadius: 50,
+            borderTopRightRadius: 50,
+            borderTopLeftRadius: 50,
+        },
+        unlike:{
+            height:35,
+            width:35,
+            opacity: 0.4
+        },
+        like:{
+            height:35,
+            width:35
+        },
+        componentContainer:{
+            flexDirection: 'column',
+            alignItems:'center'
+        },
+        number:{
+            fontWeight:'bold',
+            fontFamily: "'Helvetica', 'Arial', sans-serif;",
+            fontSize:15
         }
     })
     
