@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import { auth, db } from '../firebase/config';
+import MyCamera from '../Components/MyCamera';
 
 class Register extends Component {
     constructor(){
@@ -10,13 +11,13 @@ class Register extends Component {
             password: '',
             user: '',
             bio: '',
-            foto: '',
+            url: '',
             error: '',
+            tomarFoto:false
         }
     }
 
     onSubmit(){
-        console.log('si')
         this.registerUser(this.state.email, this.state.password);
     }
 
@@ -29,7 +30,7 @@ class Register extends Component {
                     owner:email,
                     username:this.state.user,
                     bio:this.state.bio,
-                    //falta foto
+                    foto: this.state.url,
                     createdAt:Date.now()  
                   })
                 this.props.navigation.navigate('Login')
@@ -40,12 +41,48 @@ class Register extends Component {
             })
     }
 
+    tomarFoto(){
+        if(this.state.tomarFoto) {
+            this.setState({tomarFoto:false})
+        } else{
+            this.setState({tomarFoto:true})
+        }
+       
+    }
+
+    onImageUpload(url){
+        console.log(url,'link')
+        this.setState({
+            url:url,
+            tomarFoto:false
+        })
+    }
 
     render (){
         return (
             <View>
                 <Text>Registrate</Text>
                 <View>
+                {
+                    this.state.tomarFoto? 
+                    <View>
+                        <MyCamera onImageUpload={(url) => this.onImageUpload(url)}/>
+                        <TouchableOpacity onPress={()=> this.tomarFoto()}>
+                            <Text>No tomar foto</Text>
+                        </TouchableOpacity>
+                    </View>
+                    :
+                    this.state.url == ''?
+                        <TouchableOpacity onPress={()=> this.tomarFoto()}>
+                            <Text>Tomar foto</Text>
+                        </TouchableOpacity>
+                    :
+                    <Image 
+                            style={styles.preview}
+                            source={{uri: this.state.url}}
+                            resizeMode='cover'
+                        />
+                }
                     <TextInput
                         placeholder= 'email' 
                         keyboardType= 'email-address' 
@@ -85,5 +122,11 @@ class Register extends Component {
         )
     }
 }
+
+const styles = StyleSheet.create({
+    preview:{
+        height:'40vh'
+    }
+}) 
 
 export default Register

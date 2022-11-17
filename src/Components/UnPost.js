@@ -26,7 +26,7 @@ class UnPost extends Component {
         db.collection('users').where('owner', '==', this.props.post.data.owner).onSnapshot(
             docs => {
                 let unUsuario = []
-                console.log(docs);
+  //              console.log(docs);
                 docs.forEach(doc => {
                     unUsuario.push({
                         id:doc.id,
@@ -37,7 +37,7 @@ class UnPost extends Component {
                 this.setState({
                     usuario: unUsuario[0],
                     username: unUsuario[0].data.username
-                }, ()=> console.log(this.state))
+                })
             })
     }
 

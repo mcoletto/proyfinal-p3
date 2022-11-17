@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity,Image} from 'react-native';
 import { ActivityIndicator, FlatList } from 'react-native-web';
 import { db, auth } from '../firebase/config';
 
@@ -12,6 +12,9 @@ class Profile extends Component {
             posteos: [],
             usuario: [],
             username: '',
+            bio:'',
+            foto:'',
+            mail:'',
             loading1: true,
             loading2: true
         }
@@ -52,6 +55,9 @@ class Profile extends Component {
                 this.setState({
                     usuario: usuario[0],
                     username: usuario[0].data.username,
+                    bio:usuario[0].data.bio,
+                    mail:usuario[0].data.owner,
+                    foto:usuario[0].data.foto,
                     loading2: false
                 }, () => console.log(this.state))
                 })
@@ -67,11 +73,24 @@ class Profile extends Component {
                 <Text>Este es el perfil de {this.state.username}</Text>
                 
                 {this.state.loading1 && this.state.loading2 ? <ActivityIndicator size='large' color='green' /> : 
-                <FlatList
-                    data={this.state.posteos}
-                    keyExtractor={item => item.id.toString()}
-                    renderItem={({item}) => <UnPost post={item} />}
-                />
+                <View>
+                    <Image 
+                    style={styles.preview}
+                    source={{uri: this.state.foto}}
+                    resizeMode='cover'
+                    /> 
+                    <Text>{this.state.username}</Text>
+                    <Text>{this.state.mail}</Text>
+                    <Text>Posts: {this.state.posteos.length}</Text>
+                    <Text>{this.state.bio}</Text>
+            
+                    <FlatList
+                        data={this.state.posteos}
+                        keyExtractor={item => item.id.toString()}
+                        renderItem={({item}) => <UnPost post={item} />}
+                    />
+
+             </View>
                 
                 }
             </View>
@@ -80,5 +99,10 @@ class Profile extends Component {
     
 }
 
+const styles = StyleSheet.create({
+    preview:{
+        height:'40vh'
+    }
+}) 
 
 export default Profile
