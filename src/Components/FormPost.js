@@ -24,7 +24,7 @@ class FormPost extends Component {
                 owner:auth.currentUser.email,
                 text:this.state.text,
                 likes:this.state.likes,
-                comentarios:this.state.comentarios,
+                comments:this.state.comentarios,
                 photo: this.state.url,
                 createdAt: Date.now()
             })

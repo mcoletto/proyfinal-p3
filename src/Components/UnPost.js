@@ -83,17 +83,21 @@ class UnPost extends Component {
         //console.log(this.state.usuario[0]);
         return(
                 <>
-                <TouchableOpacity onPress={()=> this.props.navigation.navigate('Profile', {mail: this.state.usuario.data.owner})}>
-                    <Text>{this.state.username}</Text>
-                </TouchableOpacity>
                     <Image 
                         style={styles.image}
                         source={{uri:this.props.post.data.photo}}
-                        resizeMode='contain'
+                        resizeMode='auto'
                     />
+                    <View  style={styles.caja}>
+                    
+                    <TouchableOpacity onPress={()=> this.props.navigation.navigate('Profile', {mail: this.state.usuario.data.owner})}>
+                        <Text>{this.state.username}</Text>
+                    </TouchableOpacity>
+
                     <Text>{this.props.post.data.text}</Text>
                 
                     <Text> Cantidad de Likes: {this.state.nroDeLikes} </Text>
+                    
                     { this.state.userLike ? 
                     <TouchableOpacity onPress={ ()=> this.unlike() }>
                         <Text>Unlike</Text>
@@ -110,10 +114,13 @@ class UnPost extends Component {
                     </TouchableOpacity> 
                     : ''
                     }
-                <TouchableOpacity>
-                    <Text onPress={ () => this.props.navigation.navigate('Comments',{idPost: this.props.post.id})} >comentarios</Text>
-                </TouchableOpacity>
+                    
+                    <TouchableOpacity>
+                        <Text onPress={ () => this.props.navigation.navigate('Comments',{idPost: this.props.post.id})} >comentarios</Text>
+                    </TouchableOpacity>
 
+                    </View>                    
+                    
                 </>
                 
             )
@@ -122,7 +129,24 @@ class UnPost extends Component {
 //<Text>{this.state.usuario[0].data.bio}</Text>   esto va arriba de la imagen, tiene que mostrar el nombre de usauario que subio el post, y cuando lo tocas redirigir a la view de ver perfil de ese user
     const styles = StyleSheet.create({
         image: {
-            height: 400,
+            height: 500,
+            width:350,
+            alignSelf:'center',
+            borderBottomRightRadius: 8,
+            borderBottomLeftRadius: 8,
+            borderTopRightRadius: 8,
+            borderTopLeftRadius: 8,
+            margin:10
+        },
+        caja: {
+            margin:10,
+            backgroundColor:'red',
+            width:250,
+            alignSelf:'center',
+            borderBottomRightRadius: 5,
+            borderBottomLeftRadius: 5,
+            borderTopRightRadius: 5,
+            borderTopLeftRadius: 5,
         }
     })
     

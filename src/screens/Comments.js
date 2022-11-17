@@ -16,7 +16,6 @@ class Comments extends Component{
     }
 
     componentDidMount(){
-    console.log('Montoda')
     db.collection('posts').doc(this.state.id).onSnapshot(
         doc => {
             console.log(this.state.id,'Fede')

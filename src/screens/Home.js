@@ -37,12 +37,13 @@ class Home extends Component {
     render(){
         return(
             <View style={styles.scroll}>
-                <Text>Estas en la home</Text>
+                <Text style={styles.titulo}>Home</Text>
                 <TouchableOpacity onPress={()=> this.props.navigation.navigate('Search')}>
                     <Text>Buscar</Text>
                 </TouchableOpacity>
                 {this.state.loading ? <ActivityIndicator size='large' color='green' /> : 
                     <FlatList
+                        style = {styles.container}
                         data={this.state.posteos}
                         keyExtractor={item => item.id.toString()}
                         renderItem={({item}) => <UnPost post={item} navigation={this.props.navigation}/>}
@@ -58,6 +59,14 @@ const styles = StyleSheet.create({
     scroll: {
       flex: 1,
     },
+    container:{
+        flex:1
+    },
+    titulo:{
+      fontWeight:'bold',
+      fontFamily: "'Helvetica', 'Arial', sans-serif;",
+      fontSize:40
+    }
   });
   
 
