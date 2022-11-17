@@ -69,7 +69,22 @@ class MyProfile extends Component {
         auth.signOut()
         this.props.navigation.navigate('Login')
     }
-    
+
+    borrarCuenta(){
+        console.log(this.state.usuario.id);
+        db.collection("users").doc(this.state.usuario.id).delete()
+        .then(()=> {
+            console.log('entre');
+            auth.currentUser.delete()
+        })
+        .then(()=> {
+            console.log('entre 2');
+            this.props.navigation.navigate('Register')
+        
+        })
+        .catch((err) => 'pifiaste algo, el error es: ' + err)
+    }
+
     render(){
         console.log(this.state.foto);
         return(
@@ -99,6 +114,9 @@ class MyProfile extends Component {
                 }
                 <TouchableOpacity onPress={() => this.logout()}>
                     <Text>Logout</Text>   
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.borrarCuenta()}>
+                    <Text>Borrar cuenta</Text>   
                 </TouchableOpacity>
 
             </View>

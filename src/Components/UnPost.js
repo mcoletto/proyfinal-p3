@@ -72,6 +72,13 @@ class UnPost extends Component {
         
     }
 
+    borrarPost(){
+        let bool = confirm('desea borrar el post?')
+        {bool ? db.collection("posts").doc(this.props.post.id).delete()
+        : console.log('se arrepintio');}
+        
+    }
+
     render(){
         //console.log(this.state.usuario[0]);
         return(
@@ -96,6 +103,17 @@ class UnPost extends Component {
                         <Text>Like</Text>
                     </TouchableOpacity>
                     }
+
+                    {auth.currentUser.email == this.props.post.data.owner ?
+                    <TouchableOpacity onPress={() => this.borrarPost()}>
+                        <Text>Borrar post</Text>   
+                    </TouchableOpacity> 
+                    : ''
+                    }
+                <TouchableOpacity>
+                    <Text onPress={ () => this.props.navigation.navigate('Comments')} >comentarios</Text>
+                </TouchableOpacity>
+
                 </>
                 
             )
