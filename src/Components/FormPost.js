@@ -63,13 +63,18 @@ class FormPost extends Component {
                     this.state.url == '' ? 
                     <MyCamera onImageUpload={(url) => this.onImageUpload(url)}/> :
                     <View>
-                        <Text>Foto seleccionada con exito!</Text>
-                        <TextInput
-                            placeholder='Ingrese el texto del post'
-                            onChangeText ={text => this.setState( { text:text } )}
-                            value = { this.state.text }
-                        />
-                        <Text style={styles.error}> {this.state.error} </Text>
+                        <Text style={styles.titulo}>Add post</Text>
+                        <View style={styles.inputContainer}>
+                            <Text style={styles.text}>Pic Upload!</Text>
+                            <TextInput
+                                placeholder='Write info'
+                                style={styles.input}
+                                onChangeText ={text => this.setState( { text:text } 
+                                    )}
+                                value = { this.state.text }
+                            />  
+                            <Text style={styles.error}> {this.state.error} </Text>
+                        </View>
                         <TouchableOpacity onPress={() => this.crearPost()}>
                             <Text>Crear Post!</Text>   
                         </TouchableOpacity>
@@ -89,5 +94,32 @@ const styles = StyleSheet.create({
     },
     error: {
         color:'red'
-    }
+    },
+    titulo:{
+        marginTop:'20%',
+        marginRight:10,
+        fontWeight:'bold',
+        fontFamily: "'Helvetica', 'Arial', sans-serif;",
+        fontSize:40
+      },
+      inputContainer:{
+        backgroundColor:'black',
+        marginTop:'10%',
+        height:'30vh',
+        alignItems: 'center'
+      },
+      input:{
+        height:'30%',
+        borderColor: 'white',
+        color:'white',
+        fontSize:18,
+        borderWidth: 4,
+        width:'80%'
+      },
+      text:{
+        fontWeight:'bold',
+        fontFamily: "'Helvetica', 'Arial', sans-serif;",
+        fontSize:20,
+        color:'white'
+      }
   });
