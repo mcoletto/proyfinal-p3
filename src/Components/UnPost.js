@@ -13,12 +13,12 @@ class UnPost extends Component {
             username: '',
             nroDeLikes: this.props.post.data.likes.length,
             userLike:false,
-            fotoUsuario:''
+            fotoUsuario:'',
+            mailUsuario:''
         }
     }
 
     componentDidMount(){
-        //console.log(this.props.post.id);
         if(this.props.post.data.likes.includes(auth.currentUser.email)){ 
             this.setState({
                 userLike:true
@@ -37,7 +37,8 @@ class UnPost extends Component {
                 this.setState({
                     usuario: unUsuario[0],
                     username: unUsuario[0].data.username,
-                    fotoUsuario: unUsuario[0].data.foto
+                    fotoUsuario: unUsuario[0].data.foto,
+                    mailUsuario: unUsuario[0].data.owner
                 })
             })
     }
@@ -60,7 +61,7 @@ class UnPost extends Component {
             db.collection('posts')
             .doc(this.props.post.id) 
             .update({
-                likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email) 
+                likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email) 
             })
             .then(()=> this.setState({
                 nroDeLikes: this.state.nroDeLikes -1,
@@ -68,13 +69,6 @@ class UnPost extends Component {
                 })
             )
             .catch(e=>console.log(e))
-    }
-
-    borrarPost(){
-        let bool = confirm('desea borrar el post?')
-        {bool ? db.collection("posts").doc(this.props.post.id).delete()
-        : console.log('se arrepintio');}
-        
     }
 
     render(){
@@ -102,7 +96,7 @@ class UnPost extends Component {
                                         style={styles.like}
                                         source={require('../../assets/Like.svg')}
                                         resizeMode='contain' 
-                                    />
+                                />
                                 </TouchableOpacity>
                                 :
                                 <TouchableOpacity onPress={ ()=> this.like() }>
@@ -116,17 +110,8 @@ class UnPost extends Component {
                                 <Text style={styles.number}> {this.state.nroDeLikes} </Text>
 
                             </View>
-                            
-                            
-
-                            {/* {auth.currentUser.email == this.props.post.data.owner ?
-                            <TouchableOpacity onPress={() => this.borrarPost()}>
-                                <Text>Borrar post</Text>   
-                            </TouchableOpacity> 
-                            : ''
-                            } */}
-                            
-                            <TouchableOpacity onPress={ () => this.props.navigation.navigate('Comments',{idPost: this.props.post.id})}>
+                                                   
+                            <TouchableOpacity onPress={ () => this.props.navigation.navigate('Comments',{idPost: this.props.post.id, mail:this.state.mailUsuario})}>
                                 <View  style={styles.componentContainer}>
                                     <Image 
                                         style={styles.like}

@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity,StyleSheet,Image} from 'react-n
 import { ActivityIndicator, FlatList } from 'react-native-web';
 import { db, auth } from '../firebase/config';
 
-import UnPost from '../Components/UnPost';
+import PostProfile from '../Components/postsProfile';
 
 class MyProfile extends Component {
     constructor(){
@@ -37,7 +37,7 @@ class MyProfile extends Component {
                 this.setState({
                     posteos: posts,
                     loading1: false
-                }, () => console.log(this.state))
+                })
                 })
             }
         )
@@ -59,7 +59,7 @@ class MyProfile extends Component {
                     mail:usuario[0].data.owner,
                     foto:usuario[0].data.foto,
                     loading2: false
-                }, () => console.log(this.state))
+                })
                 })
             }
         )
@@ -86,39 +86,41 @@ class MyProfile extends Component {
     }
 
     render(){
-        console.log(this.state.foto);
         return(
-            <View>
-                <Text>Bienvenido a tu perfil, {this.state.username}</Text>
+            <View style={styles.scroll}> 
+               
                 
-                {this.state.loading1 && this.state.loading2 ? <ActivityIndicator size='large' color='green' /> : 
-                 <View>
-                    <Image 
-                    style={styles.preview}
-                    source={{uri: this.state.foto}}
-                    resizeMode='cover'
-                    /> 
-                    <Text>{this.state.username}</Text>
-                    <Text>{this.state.mail}</Text>
-                    <Text>Posts: {this.state.posteos.length}</Text>
-                    <Text>{this.state.bio}</Text>
-                
-                <FlatList
-                    data={this.state.posteos}
-                    keyExtractor={item => item.id.toString()}
-                    renderItem={({item}) => <UnPost post={item} />}
-                />
-                
-                 </View>
-                
-                }
-                <TouchableOpacity onPress={() => this.logout()}>
-                    <Text>Logout</Text>   
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.borrarCuenta()}>
-                    <Text>Borrar cuenta</Text>   
-                </TouchableOpacity>
+                    <View style={styles.upContainer}>
+                        <Text style={styles.titulo}>My Profile</Text>
+                        <TouchableOpacity onPress={() => this.borrarCuenta()}>
+                            <Text style={styles.text}>Borrar cuenta</Text>   
+                        </TouchableOpacity>
+                    </View>
 
+                    <View style={styles.infoContainer}>
+                        <Image 
+                        style={styles.img}
+                        source={{uri: this.state.foto}}
+                        resizeMode='cover'
+                        /> 
+
+                        <Text>{this.state.username}</Text>
+                        <Text>{this.state.mail}</Text>
+                        <Text>Posts: {this.state.posteos.length}</Text>
+                        <Text>{this.state.bio}</Text>
+                        <TouchableOpacity onPress={() => this.logout()}>
+                            <Text>Logout</Text>   
+                        </TouchableOpacity>
+                    </View>
+
+                    {this.state.loading1 && this.state.loading2 ? <ActivityIndicator size='large' color='green' /> : 
+                    <FlatList
+                        style={styles.list}
+                        data={this.state.posteos}
+                        keyExtractor={item => item.id.toString()}
+                        renderItem={({item}) => <PostProfile post={item}/>}
+                    />
+                    }
             </View>
         )
     }
@@ -126,9 +128,38 @@ class MyProfile extends Component {
 }
 
 const styles = StyleSheet.create({
-    preview:{
-        height:'40vh'
-    }
+    infoContainer:{
+        flexDirection:'column',
+        alignItems:'center',
+        height:'30vh'
+    },
+    img:{
+        borderBottomRightRadius: 50,
+        borderBottomLeftRadius: 50,
+        borderTopRightRadius: 50,
+        borderTopLeftRadius: 50,
+        height:85,
+        width:85
+    },
+    titulo:{
+        fontWeight:'bold',
+        fontFamily: "'Helvetica', 'Arial', sans-serif;",
+        fontSize:40
+      },
+      upContainer:{
+        flexDirection:'row',
+        justifyContent:'space-around'
+      },
+      text:{
+
+      },
+      scroll:{
+        flex:1,
+      },
+      list:{
+        flex:1,
+        flexWrap:'wrap'
+      }
 }) 
 
 

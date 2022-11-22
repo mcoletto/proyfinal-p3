@@ -68,29 +68,49 @@ class MyCamera extends Component{
                 this.state.permisos ? 
                     this.state.showCamera ?
                     <View style={styles.cameraBody}>
-                        <Camera
-                            style={styles.cameraBody}
-                            type = {Camera.Constants.Type.front}
-                            ref={metodosDeCamara => this.metodosDeCamara = metodosDeCamara }
-                        />
-                        <TouchableOpacity style={styles.button} onPress={()=>this.sacarFoto()}>
-                        </TouchableOpacity>
+                        <View style={styles.cameraContainer}>
+                            <Camera
+                                type = {Camera.Constants.Type.front}
+                                ref={metodosDeCamara => this.metodosDeCamara = metodosDeCamara }
+                            />
+                        </View>
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity style={styles.button} onPress={()=>this.sacarFoto()}>
+                                <Image 
+                                    style={styles.camera}
+                                    source={require('../../assets/camera.svg')}
+                                    resizeMode='center'
+                                />
+                            </TouchableOpacity>
+                        </View>
                     </View>
                     ://Sino la showCamera = False, signifca que ya saco la foto. Entonces le tenemos que mostrar la foto y el usuario debe elegir si aceptarla o rechazarla
-                    <View>
+                    <View style={styles.cameraBody}>
                         <Image 
                             style={styles.preview}
                             source={{uri: this.state.urlTemporal}}
                             resizeMode='cover'
                         />
-                        <TouchableOpacity style={styles.button} onPress={()=>this.cancelar()}>
-                            <Text>Cancelar</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.button} onPress={()=>this.guardarFoto()}>
-                            <Text>Aceptar</Text>
-                        </TouchableOpacity>
+                        <View style={styles.buttonContainer}>
+                            <View style={styles.button2}>
+                                <TouchableOpacity  onPress={()=>this.cancelar()}>
+                                    <Image 
+                                        style={styles.icon}
+                                        source={require('../../assets/Wrong.svg')}
+                                        resizeMode='center'
+                                    />
+                                </TouchableOpacity> 
+                                <TouchableOpacity onPress={()=>this.guardarFoto()}>
+                                    <Image 
+                                        style={styles.icon}
+                                        source={require('../../assets/Tic.svg')}
+                                        resizeMode='center'
+                                    />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                        
                     </View>
-
                 :
                     <Text>No tengo permisos</Text>
             }
@@ -101,25 +121,46 @@ class MyCamera extends Component{
 }
 
 const styles = StyleSheet.create({
+    cameraContainer:{
+        height:'80%'
+    },
     cameraBody: {
-        height: '70vh',
-        margin:10,
-        borderRadius:90
+        height: '92vh'
+        
     },  
+    buttonContainer:{
+        height:'20%',
+        justifyContent:'flex-end'
+    },
     button:{
-        height: 50,
-        width: 50,
-        borderRadius: 50,
-        display: 'inline-block',
-        backgroundColor:'rgb(75, 132, 255)'
-       /*  borderColor: '#ccc',
-        borderWidth: 1,
-        padding: 5,
-        borderRadius: 4,
-        marginTop: 20 */
+        width:300,
+        alignSelf:'center',
+        height:100,
+        backgroundColor:'black',
+        borderTopRightRadius:35,
+        borderTopLeftRadius:35,
+    },
+    button2:{
+        width:300,
+        alignSelf:'center',
+        height:100,
+        backgroundColor:'black',
+        position:'relative',
+        borderTopRightRadius:35,
+        borderTopLeftRadius:35,
+        flexDirection:'row',
+        justifyContent:'space-around',
+
     },
     preview:{
-        height:'40vh'
+        height:'80%'
+    },
+    camera:{
+        height:100
+    },
+    icon:{
+        height:100,
+        width:50,
     }
 }) 
 
