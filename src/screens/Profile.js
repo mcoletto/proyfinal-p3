@@ -66,43 +66,70 @@ class Profile extends Component {
     }
     
     render(){
-        console.log(this.props.route.params.mail);
         return(
             
-            <View>
-                <Text>Este es el perfil de {this.state.username}</Text>
-                
-                {this.state.loading1 && this.state.loading2 ? <ActivityIndicator size='large' color='green' /> : 
-                <View>
-                    <Image 
-                    style={styles.preview}
-                    source={{uri: this.state.foto}}
-                    resizeMode='cover'
-                    /> 
-                    <Text>{this.state.username}</Text>
-                    <Text>{this.state.mail}</Text>
-                    <Text>Posts: {this.state.posteos.length}</Text>
-                    <Text>{this.state.bio}</Text>
-            
-                    <FlatList
-                        data={this.state.posteos}
-                        keyExtractor={item => item.id.toString()}
-                        renderItem={({item}) => <UnPost post={item} />}
-                    />
+            <View style={styles.scroll}> 
+               
+            <View style={styles.infoContainer}>
+                <Image 
+                style={styles.img}
+                source={{uri: this.state.foto}}
+                resizeMode='cover'
+                /> 
 
-             </View>
-                
-                }
+                <Text>{this.state.username}</Text>
+                <Text>{this.state.mail}</Text>
+                <Text>Posts: {this.state.posteos.length}</Text>
+                <Text>{this.state.bio}</Text>
             </View>
+
+            {this.state.loading1 && this.state.loading2 ? <ActivityIndicator size='large' color='green' /> : 
+            <FlatList
+                data={this.state.posteos}
+                keyExtractor={item => item.id.toString()}
+                renderItem={({item}) => <UnPost post={item} navigation={this.props.navigation} />}
+            />
+            }
+    </View>
         )
     }
     
 }
 
 const styles = StyleSheet.create({
-    preview:{
-        height:'40vh'
-    }
+    infoContainer:{
+        flexDirection:'column',
+        alignItems:'center',
+        height:'30vh'
+    },
+    img:{
+        borderBottomRightRadius: 50,
+        borderBottomLeftRadius: 50,
+        borderTopRightRadius: 50,
+        borderTopLeftRadius: 50,
+        height:85,
+        width:85
+    },
+    titulo:{
+        fontWeight:'bold',
+        fontFamily: "'Helvetica', 'Arial', sans-serif;",
+        fontSize:40
+      },
+      upContainer:{
+        flexDirection:'row',
+        justifyContent:'space-around'
+      },
+      text:{
+
+      },
+      scroll:{
+        flex:1,
+      },
+      list:{
+        flex:1,
+        flexWrap:'wrap'
+      }
 }) 
 
 export default Profile
+

@@ -11,7 +11,7 @@ class Register extends Component {
             password: '',
             user: '',
             bio: '',
-            url: 'gs://proyfinal-p3.appspot.com/photos/npPhoto.jpg',
+            url: 'https://firebasestorage.googleapis.com/v0/b/proyfinal-p3.appspot.com/o/photos%2FnpPhoto.jpg?alt=media&token=6bf97125-c596-4cc2-98b8-a0a1aae243ec',
             error: '',
             tomarFoto:false
         }
@@ -73,7 +73,7 @@ class Register extends Component {
                         </TouchableOpacity>
                     </View>
                     :
-                    this.state.url == 'gs://proyfinal-p3.appspot.com/photos/npPhoto.jpg'?
+                    this.state.url == 'https://firebasestorage.googleapis.com/v0/b/proyfinal-p3.appspot.com/o/photos%2FnpPhoto.jpg?alt=media&token=6bf97125-c596-4cc2-98b8-a0a1aae243ec'?
                         <TouchableOpacity onPress={()=> this.tomarFoto()}>
                             <Text>Tomar foto</Text>
                         </TouchableOpacity>

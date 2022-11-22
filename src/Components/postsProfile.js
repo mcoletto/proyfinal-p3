@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TextInput, TouchableOpacity,ImageBackground} from 'react-native';
+import { View, Text, Image, TouchableOpacity} from 'react-native';
 import { db, auth } from '../firebase/config';
 import { StyleSheet } from 'react-native-web';
-import firebase from 'firebase';
 
 
 class UnPost extends Component {
@@ -41,49 +40,14 @@ class UnPost extends Component {
                 })
             })
     }
-
-    like(){
-        db.collection('posts')
-            .doc(this.props.post.id) 
-            .update({
-                likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email) 
-            })
-            .then(()=> this.setState({
-                nroDeLikes: this.state.nroDeLikes +1,
-                userLike: true, 
-                })
-            )
-            .catch(e=>console.log(e))
-    }
-
-    unlike(){
-            db.collection('posts')
-            .doc(this.props.post.id) 
-            .update({
-                likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email) 
-            })
-            .then(()=> this.setState({
-                nroDeLikes: this.state.nroDeLikes -1,
-                userLike: false, 
-                })
-            )
-            .catch(e=>console.log(e))
-    }
-
-    borrarPost(){
-        let bool = confirm('desea borrar el post?')
-        {bool ? db.collection("posts").doc(this.props.post.id).delete()
-        : console.log('se arrepintio');}
-        
-    }
-
+    
     render(){
         return(
                 <View style={styles.container}>
                     <Image style={styles.image} source={{uri:this.props.post.data.photo}} resizeMode='auto'>
                     </Image>   
                     {auth.currentUser.email == this.props.post.data.owner ?
-                            <TouchableOpacity onPress={() => this.borrarPost()}>
+                            <TouchableOpacity onPress={() => this.props.borrar(this.props.post.id)}>
                                 <Text>Borrar post</Text>   
                             </TouchableOpacity> 
                             : ''

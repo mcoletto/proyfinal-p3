@@ -74,15 +74,20 @@ class MyProfile extends Component {
         console.log(this.state.usuario.id);
         db.collection("users").doc(this.state.usuario.id).delete()
         .then(()=> {
-            console.log('entre');
             auth.currentUser.delete()
         })
         .then(()=> {
-            console.log('entre 2');
             this.props.navigation.navigate('Register')
         
         })
         .catch((err) => 'pifiaste algo, el error es: ' + err)
+    }
+
+    borrarPost(id){
+        let bool = confirm('desea borrar el post?')
+        if (bool){
+            db.collection("posts").doc(id).delete()
+        }
     }
 
     render(){
@@ -118,7 +123,7 @@ class MyProfile extends Component {
                         style={styles.list}
                         data={this.state.posteos}
                         keyExtractor={item => item.id.toString()}
-                        renderItem={({item}) => <PostProfile post={item}/>}
+                        renderItem={({item}) => <PostProfile post={item} borrar={ (id) => this.borrarPost(id)}/>}
                     />
                     }
             </View>

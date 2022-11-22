@@ -71,7 +71,7 @@ render() {
                         <Image style={styles.profilePhoto} source={{uri:this.state.fotoUsuario}} resizeMode='auto'/> 
                         <Text style={styles.username}>{this.state.username}</Text>
                         <Image style={styles.postPhoto} source={{uri:this.state.post.photo}} resizeMode='contain' /> 
-                        <Text style={styles.bio}>{this.state.bioUsuario}</Text>
+                        <Text style={styles.bio}>{this.state.post.text}</Text>
                     </View>
                     <View style={styles.containerAdd}>
                     <TextInput
