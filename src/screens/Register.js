@@ -16,15 +16,16 @@ class Register extends Component {
             tomarFoto:false
         }
     }
-
+    
     onSubmit(){
         this.registerUser(this.state.email, this.state.password);
     }
 
     registerUser(email, pass){
         //Registrar en firebase y si el reigstro sale bien redireccionar a Home
-        console.log(this.state.url,'Fede')
-        auth.createUserWithEmailAndPassword(email, pass)
+        if (this.state.email&&this.state.password&&this.state.user) {
+            console.log(this.state.url,'Fede')
+            auth.createUserWithEmailAndPassword(email, pass)
             .then( res => {
                 //equivalente a res.redirect
                 db.collection('users').add({
@@ -40,6 +41,10 @@ class Register extends Component {
                 console.log(error);
                 this.setState({error:error.message})
             })
+        }else{
+            this.setState({error: "Campo obligatorio incompleto"})
+        }
+        
     }
 
     tomarFoto(){
@@ -90,9 +95,11 @@ class Register extends Component {
                             resizeMode='cover'
                         />
                 }
+
+                
                     <TextInput
                         style = {styles.textInput}  
-                        placeholder= 'email' 
+                        placeholder= 'campo obligatorio'
                         keyboardType= 'email-address' 
                         onChangeText= {text => this.setState({email:text})} 
                         value= {this.state.email} 
@@ -123,9 +130,10 @@ class Register extends Component {
                     <Text> {this.state.error} </Text>
                 
                 
-                    <TouchableOpacity onPress={() => this.onSubmit()}>
-                        <Text style={styles.buttonR}> Register </Text>
-                    </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.onSubmit()}>
+                            <Text style={styles.buttonR}> Register </Text>
+                        </TouchableOpacity>   
+                    
 
                     <Text style={styles.buttonL} onPress={ () => this.props.navigation.navigate('Login')} >Ir a Login</Text>
 
@@ -140,6 +148,7 @@ const styles = StyleSheet.create({
     preview:{
         height:'40vh'
     },
+
     register:{
         alignItems: 'center',
         justifyContent: 'center',
@@ -175,6 +184,7 @@ const styles = StyleSheet.create({
       fontSize:40,
       marginBottom: 30,
     },
+
     buttonR:{
         backgroundColor: '#000000',
         color: '#F5F5F5',
@@ -197,10 +207,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         alignItems: 'flex-end'
     },
-    
-    
-
-  
   });
 
 export default Register

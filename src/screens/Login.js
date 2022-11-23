@@ -21,7 +21,8 @@ class Login extends Component {
     }
         
     login(){
-        auth.signInWithEmailAndPassword(this.state.email,this.state.password)
+        if (this.state.email&&this.state.password) {
+            auth.signInWithEmailAndPassword(this.state.email,this.state.password)
         .then( res => 
             {   
                 this.setState({email:'',password:'',error:'Logueado correctamente'})
@@ -31,6 +32,10 @@ class Login extends Component {
             console.log(error);
             this.setState({error:error.message})
         })
+        }else{
+            this.setState({error: "Campo obligatorio incompleto"})
+        }
+        
     }
     
     render(){
