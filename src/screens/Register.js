@@ -61,8 +61,8 @@ class Register extends Component {
 
     render (){
         return (
-            <View>
-                <Text>Registrate</Text>
+            <View style={styles.register}>
+                <Text style={styles.titulo}>Registrate</Text>
                 <View>
                 {
                     this.state.tomarFoto? 
@@ -75,7 +75,13 @@ class Register extends Component {
                     :
                     this.state.url == 'https://firebasestorage.googleapis.com/v0/b/proyfinal-p3.appspot.com/o/photos%2FnpPhoto.jpg?alt=media&token=6bf97125-c596-4cc2-98b8-a0a1aae243ec'?
                         <TouchableOpacity onPress={()=> this.tomarFoto()}>
-                            <Text>Tomar foto</Text>
+                            <Image 
+                                  source={
+                                      require('../../assets/cam.png')
+                                  }
+                                  resizeMode='center'
+                                  style={styles.buttonImg}
+                                />
                         </TouchableOpacity>
                     :
                     <Image 
@@ -85,12 +91,14 @@ class Register extends Component {
                         />
                 }
                     <TextInput
+                        style = {styles.textInput}  
                         placeholder= 'email' 
                         keyboardType= 'email-address' 
                         onChangeText= {text => this.setState({email:text})} 
                         value= {this.state.email} 
                     />
                     <TextInput 
+                        style = {styles.textInput} 
                         placeholder= 'password'
                         keyboardType= 'default'
                         secureTextEntry={true}
@@ -98,12 +106,14 @@ class Register extends Component {
                         value= {this.state.password}
                     />
                     <TextInput 
+                        style = {styles.textInput} 
                         placeholder= 'username'
                         keyboardType= 'default'
                         onChangeText= {text => this.setState({user:text})}
                         value= {this.state.user}
                     />
                     <TextInput 
+                        style = {styles.textInput} 
                         placeholder= 'bio'
                         keyboardType= 'default'
                         onChangeText= {text => this.setState({bio:text})}
@@ -113,10 +123,10 @@ class Register extends Component {
                     <Text> {this.state.error} </Text>
                     
                     <TouchableOpacity onPress={() => this.onSubmit()}>
-                        <Text> Register </Text>
+                        <Text style={styles.buttonR}> Register </Text>
                     </TouchableOpacity>
 
-                    <Text onPress={ () => this.props.navigation.navigate('Login')} >Ir a Login</Text>
+                    <Text style={styles.buttonL} onPress={ () => this.props.navigation.navigate('Login')} >Ir a Login</Text>
 
                 </View>
             </View>
@@ -125,9 +135,70 @@ class Register extends Component {
 }
 
 const styles = StyleSheet.create({
+
     preview:{
         height:'40vh'
-    }
-}) 
+    },
+    register:{
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        flex: 1,
+
+    },
+
+    buttonImg:{
+        height: 80,
+        width:80,
+        alignSelf: 'center',
+        marginBottom: 27
+    }, 
+
+    textInput: {
+        flex: 1,
+        backgroundColor: "#fff",
+        borderWidth: 1,
+        borderStyle: 'solid',
+        borderColor: '#667080',
+        fontSize: 16,
+        width: 345,
+        padding: 10,
+        marginBottom: 27,
+        borderRadius: 5
+    },
+   
+    titulo:{
+      fontWeight:'bold',
+      fontFamily: "'Helvetica', 'Arial', sans-serif;",
+      fontSize:40,
+      marginBottom: 30,
+    },
+    buttonR:{
+        backgroundColor: '#000000',
+        color: '#F5F5F5',
+        textAlign: 'center',
+        fontSize: 16,
+        padding: 10,
+        marginBottom: 27,
+        
+    },
+
+    buttonL:{
+        backgroundColor: '#E0E2E4',
+        color: '#667080',
+        textAlign: 'center',
+        fontSize: 16,
+        padding: 10,
+        maxWidth: 130,
+        marginBottom: 27,
+        marginTop: 60,
+        alignSelf: 'center',
+        alignItems: 'flex-end'
+    },
+    
+    
+
+  
+  });
 
 export default Register
