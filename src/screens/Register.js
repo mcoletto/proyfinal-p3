@@ -69,7 +69,7 @@ class Register extends Component {
                     <View>
                         <MyCamera onImageUpload={(url) => this.onImageUpload(url)}/>
                         <TouchableOpacity onPress={()=> this.tomarFoto()}>
-                            <Text>No tomar foto</Text>
+                            <Text></Text>
                         </TouchableOpacity>
                     </View>
                     :
@@ -121,7 +121,8 @@ class Register extends Component {
                     />
 
                     <Text> {this.state.error} </Text>
-                    
+                
+                
                     <TouchableOpacity onPress={() => this.onSubmit()}>
                         <Text style={styles.buttonR}> Register </Text>
                     </TouchableOpacity>
@@ -164,7 +165,8 @@ const styles = StyleSheet.create({
         width: 345,
         padding: 10,
         marginBottom: 27,
-        borderRadius: 5
+        borderRadius: 5,
+        color:'#667080'
     },
    
     titulo:{

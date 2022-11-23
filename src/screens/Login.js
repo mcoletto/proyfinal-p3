@@ -86,7 +86,8 @@ const styles = StyleSheet.create({
         width: 345,
         padding: 10,
         marginBottom: 27,
-        borderRadius: 5
+        borderRadius: 5,
+        color:'#667080'
     },
    
     titulo:{
