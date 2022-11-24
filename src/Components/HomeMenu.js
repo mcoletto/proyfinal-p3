@@ -12,8 +12,7 @@ function HomeMenu () {
                 <Tab.Navigator 
                 screenOptions={{
                         tabBarShowLabel: false,
-                        tabBarStyle: { backgroundColor: 'black',height:'8vh',borderTopStyle: 'none'},
-                        activeTintColor: 'red'
+                        tabBarStyle: { backgroundColor: 'black',height:'8vh',borderTopStyle: 'none'}
                 }} 
                 >
                     <Tab.Screen name='Principal' component = {PrincipalMenu} options={{
@@ -71,6 +70,7 @@ function HomeMenu () {
                               ),
                     }}
                     />
+                    
                 </Tab.Navigator>
         )
 }

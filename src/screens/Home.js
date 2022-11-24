@@ -15,9 +15,10 @@ class Home extends Component {
     }
 
     componentDidMount(){
+        console.log('Renderizado')
         db.collection('posts').orderBy('createdAt', 'desc').onSnapshot(
             docs => {
-                
+                console.log('yo no entiendo nada')
                 let posts = [];
                 docs.forEach(doc => {
                     posts.push({

@@ -18,7 +18,7 @@ class FormPost extends Component {
     }
    
     crearPost() {
-        if (this.state.text != '' || this.state.url != '') 
+        if (this.state.url != '') 
         {
            db.collection('posts').add({
                 owner:auth.currentUser.email,
@@ -43,10 +43,7 @@ class FormPost extends Component {
                 console.log(error)
                 this.setState({error:error.message})
             });
-        } else
-        {
-            this.state.text == ''? this.setState({error:'El texto no puede estar vacio'}) : this.setState({error:'Debe tener una imagen'});
-        }
+        } 
           
     }
 

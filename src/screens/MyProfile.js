@@ -21,13 +21,15 @@ class MyProfile extends Component {
     }
 
     componentDidMount(){
+        console.log('Fede')
         this.obtenerPosteos();
         this.obtenerUsuario()
     }
 
     obtenerPosteos(){
+        console.log('estoy obteniendo posteos')
         db.collection('posts').where('owner', '==', auth.currentUser.email).orderBy('createdAt', 'desc').onSnapshot(
-            docs =>{
+            docs =>{ 
                 let posts = [];
                 docs.forEach (doc => {
                     posts.push({
@@ -86,8 +88,10 @@ class MyProfile extends Component {
     borrarPost(id){
         let bool = confirm('desea borrar el post?')
         if (bool){
-            db.collection("posts").doc(id).delete()
-            this.obtenerPosteos();
+            db.collection("posts").doc(id).delete().then(() => this.obtenerPosteos())
+            if (this.state.posteos.length == 1){
+                this.setState({posteos:[]})
+            }
         }
     }
 

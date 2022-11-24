@@ -95,47 +95,47 @@ class Register extends Component {
                         />
                 }
 
-                
-                    <TextInput
-                        style = {styles.textInput}  
-                        placeholder= 'campo obligatorio'
-                        keyboardType= 'email-address' 
-                        onChangeText= {text => this.setState({email:text})} 
-                        value= {this.state.email} 
-                    />
-                    <TextInput 
-                        style = {styles.textInput} 
-                        placeholder= 'password'
-                        keyboardType= 'default'
-                        secureTextEntry={true}
-                        onChangeText= {text => this.setState({password:text})}
-                        value= {this.state.password}
-                    />
-                    <TextInput 
-                        style = {styles.textInput} 
-                        placeholder= 'username'
-                        keyboardType= 'default'
-                        onChangeText= {text => this.setState({user:text})}
-                        value= {this.state.user}
-                    />
-                    <TextInput 
-                        style = {styles.textInput} 
-                        placeholder= 'bio'
-                        keyboardType= 'default'
-                        onChangeText= {text => this.setState({bio:text})}
-                        value= {this.state.bio}
-                    />
+                {this.state.tomarFoto? <Text></Text> :
+                    <View>
+                            <TextInput
+                                style = {styles.textInput}  
+                                placeholder= 'email (campo obligatorio)'
+                                keyboardType= 'email-address' 
+                                onChangeText= {text => this.setState({email:text})} 
+                                value= {this.state.email} 
+                            />
+                            <TextInput 
+                                style = {styles.textInput} 
+                                placeholder= 'password (obligatorio)'
+                                keyboardType= 'default'
+                                secureTextEntry={true}
+                                onChangeText= {text => this.setState({password:text})}
+                                value= {this.state.password}
+                            />
+                            <TextInput 
+                                style = {styles.textInput} 
+                                placeholder= 'username (obligatorio)'
+                                keyboardType= 'default'
+                                onChangeText= {text => this.setState({user:text})}
+                                value= {this.state.user}
+                            />
+                            <TextInput 
+                                style = {styles.textInput} 
+                                placeholder= 'bio'
+                                keyboardType= 'default'
+                                onChangeText= {text => this.setState({bio:text})}
+                                value= {this.state.bio}
+                            />
 
-                    <Text> {this.state.error} </Text>
-                
-                
-                        <TouchableOpacity onPress={() => this.onSubmit()}>
-                            <Text style={styles.buttonR}> Register </Text>
-                        </TouchableOpacity>   
-                    
-
-                    <Text style={styles.buttonL} onPress={ () => this.props.navigation.navigate('Login')} >Ir a Login</Text>
-
+                            <Text> {this.state.error} </Text>
+                        
+                            <TouchableOpacity onPress={() => this.onSubmit()}>
+                                <Text style={styles.buttonR}> Register </Text>
+                            </TouchableOpacity>   
+                            
+                            <Text style={styles.buttonL} onPress={ () => this.props.navigation.navigate('Login')} >Ir a Login</Text>
+                    </View>
+                }
                 </View>
             </View>
         )
@@ -145,7 +145,8 @@ class Register extends Component {
 const styles = StyleSheet.create({
 
     preview:{
-        height:'40vh'
+        height:'20vh',
+        marginBottom:15
     },
 
     register:{
