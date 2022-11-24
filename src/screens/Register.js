@@ -108,7 +108,8 @@ class Register extends Component {
                         />
                 }
 
-                
+                {   this.state.tomarFoto? <Text></Text>:
+                    <View>
                     <TextInput
                         style = {styles.textInput}  
                         placeholder= 'campo obligatorio'
