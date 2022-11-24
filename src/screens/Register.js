@@ -13,17 +13,25 @@ class Register extends Component {
             bio: '',
             url: 'https://firebasestorage.googleapis.com/v0/b/proyfinal-p3.appspot.com/o/photos%2FnpPhoto.jpg?alt=media&token=6bf97125-c596-4cc2-98b8-a0a1aae243ec',
             error: '',
-            tomarFoto:false
+            tomarFoto:false,
+            styleEmail:  styles.textInput,
+            stylePass:  styles.textInput,
+            styleUser:  styles.textInput
         }
     }
     
     onSubmit(){
+
         this.registerUser(this.state.email, this.state.password);
     }
 
     registerUser(email, pass){
         //Registrar en firebase y si el reigstro sale bien redireccionar a Home
         if (this.state.email&&this.state.password&&this.state.user) {
+            this.setState({styleEmail: styles.textInput})
+            this.setState({stylePass: styles.textInput})
+            this.setState({styleUser: styles.textInput})
+
             console.log(this.state.url,'Fede')
             auth.createUserWithEmailAndPassword(email, pass)
             .then( res => {
@@ -34,7 +42,7 @@ class Register extends Component {
                     bio:this.state.bio,
                     foto: this.state.url,
                     createdAt:Date.now()  
-                  })
+                })
                 this.props.navigation.navigate('Login')
             })
             .catch(error =>{
@@ -42,7 +50,12 @@ class Register extends Component {
                 this.setState({error:error.message})
             })
         }else{
+            console.log('entre');
             this.setState({error: "Campo obligatorio incompleto"})
+            this.state.email?.length == 0 ? this.setState({styleEmail: styles.incompleto}) :  this.setState({styleEmail: styles.textInput})
+            this.state.password?.length == 0 ? this.setState({stylePass: styles.incompleto}) : this.setState({stylePass: styles.textInput})
+            this.state.user?.length == 0 ? this.setState({styleUser: styles.incompleto}) : this.setState({styleUser: styles.textInput})
+            
         }
         
     }
@@ -95,37 +108,36 @@ class Register extends Component {
                         />
                 }
 
-                {this.state.tomarFoto? <Text></Text> :
-                    <View>
-                            <TextInput
-                                style = {styles.textInput}  
-                                placeholder= 'email (campo obligatorio)'
-                                keyboardType= 'email-address' 
-                                onChangeText= {text => this.setState({email:text})} 
-                                value= {this.state.email} 
-                            />
-                            <TextInput 
-                                style = {styles.textInput} 
-                                placeholder= 'password (obligatorio)'
-                                keyboardType= 'default'
-                                secureTextEntry={true}
-                                onChangeText= {text => this.setState({password:text})}
-                                value= {this.state.password}
-                            />
-                            <TextInput 
-                                style = {styles.textInput} 
-                                placeholder= 'username (obligatorio)'
-                                keyboardType= 'default'
-                                onChangeText= {text => this.setState({user:text})}
-                                value= {this.state.user}
-                            />
-                            <TextInput 
-                                style = {styles.textInput} 
-                                placeholder= 'bio'
-                                keyboardType= 'default'
-                                onChangeText= {text => this.setState({bio:text})}
-                                value= {this.state.bio}
-                            />
+                
+                    <TextInput
+                        style = {styles.textInput}  
+                        placeholder= 'campo obligatorio'
+                        keyboardType= 'email-address' 
+                        onChangeText= {text => this.setState({email:text})} 
+                        value= {this.state.email} 
+                    />
+                    <TextInput 
+                        style = {styles.textInput} 
+                        placeholder= 'password'
+                        keyboardType= 'default'
+                        secureTextEntry={true}
+                        onChangeText= {text => this.setState({password:text})}
+                        value= {this.state.password}
+                    />
+                    <TextInput 
+                        style = {styles.textInput} 
+                        placeholder= 'username'
+                        keyboardType= 'default'
+                        onChangeText= {text => this.setState({user:text})}
+                        value= {this.state.user}
+                    />
+                    <TextInput 
+                        style = {styles.textInput} 
+                        placeholder= 'bio'
+                        keyboardType= 'default'
+                        onChangeText= {text => this.setState({bio:text})}
+                        value= {this.state.bio}
+                    />
 
                             <Text> {this.state.error} </Text>
                         
@@ -148,7 +160,19 @@ const styles = StyleSheet.create({
         height:'20vh',
         marginBottom:15
     },
-
+    incompleto:{
+        flex: 1,
+        backgroundColor: "#fff",
+        borderWidth: 1,
+        borderStyle: 'solid',
+        borderColor: '#FF0000',
+        fontSize: 16,
+        width: 345,
+        padding: 10,
+        marginBottom: 27,
+        borderRadius: 5,
+        color:'#FF0000'
+    },
     register:{
         alignItems: 'center',
         justifyContent: 'center',
@@ -177,12 +201,12 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         color:'#667080'
     },
-   
+
     titulo:{
-      fontWeight:'bold',
-      fontFamily: "'Helvetica', 'Arial', sans-serif;",
-      fontSize:40,
-      marginBottom: 30,
+        fontWeight:'bold',
+        fontFamily: "'Helvetica', 'Arial', sans-serif;",
+        fontSize:40,
+        marginBottom: 30,
     },
 
     buttonR:{
@@ -207,6 +231,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         alignItems: 'flex-end'
     },
-  });
+});
 
 export default Register
