@@ -21,7 +21,7 @@ class Login extends Component {
     }
         
     login(){
-        if (this.state.email&&this.state.password) {
+        if (this.state.email && this.state.password) {
             auth.signInWithEmailAndPassword(this.state.email,this.state.password)
         .then( res => 
             {   

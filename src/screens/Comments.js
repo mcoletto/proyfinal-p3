@@ -25,7 +25,7 @@ class Comments extends Component{
                 this.setState({
                 post: doc.data(),
                 loading1:false
-            })
+            }, () => this.setState({commentsOrder: this.state.post.comments.reverse()}))
         })
     db.collection('users').where('owner', '==', this.props.route.params.mail).onSnapshot(
             docs =>{
@@ -92,7 +92,7 @@ render() {
                     {this.state.post.comments.length === 0 && this.state.loading1 === false ? 
                     <Text>no hay comentarios</Text> 
                     : 
-                        <FlatList style = {styles.containerCom} data={this.state.post.comments} keyExtractor={unComentario=> unComentario.createdAt.toString()} renderItem={({ item }) =>  <UnComentario comment={item}/>} />
+                        <FlatList style = {styles.containerCom} data={this.state.commentsOrder} keyExtractor={unComentario=> unComentario.createdAt.toString()} renderItem={({ item }) =>  <UnComentario comment={item}/>} />
                     }
                 </View>
             }     
