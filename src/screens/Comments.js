@@ -71,8 +71,13 @@ render() {
                         <Image style={styles.profilePhoto} source={{uri:this.state.fotoUsuario}} resizeMode='auto'/> 
                         <Text style={styles.username}>{this.state.username}</Text>
                         <Image style={styles.postPhoto} source={{uri:this.state.post.photo}} resizeMode='contain' /> 
+                        </View>
+                        <View style={styles.containerComment}>
+
+                        <Text style={styles.bio2}>{this.state.username}</Text>
                         <Text style={styles.bio}>{this.state.post.text}</Text>
-                    </View>
+                        </View>
+
                     <View style={styles.containerAdd}>
                     <TextInput
                         style={styles.input}
@@ -104,6 +109,7 @@ render() {
 }
 
 const styles = StyleSheet.create({
+    
     containerCom:{
         flex:1
     },
@@ -125,7 +131,9 @@ const styles = StyleSheet.create({
     },
     username:{
         fontSize:20,
-        marginTop:10
+        marginTop:10,
+        fontWeight: 'bold'
+
     },
     postPhoto:{
        marginTop:10,
@@ -133,10 +141,12 @@ const styles = StyleSheet.create({
        width:'100%' 
     },
     bio:{
-        alignSelf:'flex-start',
-        fontSize:20,
-        marginTop:2,
+        fontSize:17,
         marginLeft:4
+    },
+    bio2:{
+        fontSize:17,
+        fontWeight: 'bold'
     },
     containerAdd:{
         marginTop:'6%',
@@ -160,7 +170,11 @@ const styles = StyleSheet.create({
     send:{
         width:'85%',
         height:'85%'
-    }
+    },
+    containerComment:{
+        flexDirection:'row',
+        marginLeft: 15
+    },
 
   });
   

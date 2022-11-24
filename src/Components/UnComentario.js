@@ -35,12 +35,17 @@ class UnComentario extends Component {
         return(
             <View style={styles.containerComent}> 
                     <Image style={styles.profilePhoto} source={{uri:this.state.foto}} resizeMode='auto'/> 
-                    <Text style={styles.text}>{this.state.username} </Text>
+                    <Text style={styles.textU}>{this.state.username} </Text>
                     <Text style={styles.text}>{this.props.comment.comments}</Text> 
             </View>  
         )}
     }
 const styles = StyleSheet.create({
+    textU:{
+        fontSize:15,
+        marginRight: 5,
+        fontWeight: 'bold'
+    },
         containerComent:{
         alignItems: 'center',
         marginTop:10,
@@ -58,7 +63,7 @@ const styles = StyleSheet.create({
             marginRight:10
         },
         text:{
-            fontSize:20
+            fontSize:15
         }
     })
     
