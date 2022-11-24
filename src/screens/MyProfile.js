@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity,StyleSheet,Image} from 'react-native';
 import { ActivityIndicator, FlatList } from 'react-native-web';
 import { db, auth } from '../firebase/config';
-
 import PostProfile from '../Components/postsProfile';
 
 class MyProfile extends Component {
