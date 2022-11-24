@@ -87,6 +87,7 @@ class MyProfile extends Component {
         let bool = confirm('desea borrar el post?')
         if (bool){
             db.collection("posts").doc(id).delete()
+            this.obtenerPosteos();
         }
     }
 

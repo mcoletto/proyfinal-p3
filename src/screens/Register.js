@@ -57,7 +57,6 @@ class Register extends Component {
     }
 
     onImageUpload(url){
-        console.log(url,'link')
         this.setState({
             url:url,
             tomarFoto:false

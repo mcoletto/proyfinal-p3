@@ -16,19 +16,18 @@ class MyCamera extends Component{
     }
 
     componentDidMount(){
-        //Solicitamos los permisos si los acepta entonces cambiamos el estado
         Camera.requestCameraPermissionsAsync()
             .then( () => {
                 this.setState({
                 permisos: true
             })})
             .catch( e => console.log(e))
+
+            //Solicitamos los permisos si los acepta entonces cambiamos el estado
+        
     }
 
     sacarFoto(){
-        //Este es el metodo sacar foto que se activa al clickear el btn.
-        //Este lo que hace es que luego de guardar la foto te guarda en el estado la direccion del dispositivo donde se guardo la foto 
-        //Y dsp te deja de mostrar la camara
         this.metodosDeCamara.takePictureAsync()
             .then( photo => {
                 this.setState({
@@ -37,22 +36,31 @@ class MyCamera extends Component{
                 })
             })
             .catch( e => console.log(e))
+
+
+        //Este es el metodo sacar foto que se activa al clickear el btn.
+        //Este lo que hace es que luego de guardar la foto te guarda en el estado la direccion del dispositivo donde se guardo la foto 
+        //Y dsp te deja de mostrar la camara
     }
 
     guardarFoto(){
-        //Si toca aceptar se accede a este metodo
-        fetch(this.state.urlTemporal) //buscar la foto guardada temporalmente en el dispositivo
-            .then(res => res.blob()) //La transformamos en formato binario.
+        fetch(this.state.urlTemporal) 
+            .then(res => res.blob()) 
             .then( image => { 
-                //Ya con la foto transformada hay que guardarla en el storage
-                const refStorage = storage.ref(`photos/${Date.now()}.jpg`); //Referencio al storage de la BD
-                refStorage.put(image) //Envio la foto transformada al storage
+                const refStorage = storage.ref(`photos/${Date.now()}.jpg`); 
+                refStorage.put(image) 
                     .then(()=>{
-                        refStorage.getDownloadURL() //Obtengo la URL de firebase que voy a usar.
-                        .then( url => this.props.onImageUpload(url)) //La guardo en el estado
+                        refStorage.getDownloadURL() 
+                        .then( url => this.props.onImageUpload(url)) 
                     })
             })
             .catch(e => console.log(e))
+            //La transformamos en formato binario.
+            //Ya con la foto transformada hay que guardarla en el storage
+            //Referencio al storage de la BD
+            //Envio la foto transformada al storage
+            //Obtengo la URL de firebase que voy a usar.
+            //La guardo en el estado
         }
 
         cancelar(){
