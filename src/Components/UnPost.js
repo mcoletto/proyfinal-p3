@@ -110,7 +110,7 @@ class UnPost extends Component {
                                 <Text style={styles.number}> {this.state.nroDeLikes} </Text>
 
                             </View>
-                                                   
+                                                
                             <TouchableOpacity onPress={ () => this.props.navigation.navigate('Comments',{idPost: this.props.post.id, mail:this.state.mailUsuario})}>
                                 <View  style={styles.componentContainer}>
                                     <Image 
@@ -125,7 +125,7 @@ class UnPost extends Component {
                         </View>      
                     </ImageBackground>
                     
-                                  
+                                
                 </View>
             )
         }

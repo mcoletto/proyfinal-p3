@@ -201,12 +201,12 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         color:'#667080'
     },
-   
+
     titulo:{
-      fontWeight:'bold',
-      fontFamily: "'Helvetica', 'Arial', sans-serif;",
-      fontSize:40,
-      marginBottom: 30,
+        fontWeight:'bold',
+        fontFamily: "'Helvetica', 'Arial', sans-serif;",
+        fontSize:40,
+        marginBottom: 30,
     },
 
     buttonR:{
@@ -231,6 +231,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         alignItems: 'flex-end'
     },
-  });
+});
 
 export default Register
