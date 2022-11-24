@@ -23,8 +23,9 @@ class UnComentario extends Component {
                         data: doc.data()
                     })
                 this.setState({
-                    foto:usuario[0].data.foto
-                })
+                    foto:usuario[0].data.foto,
+                    username: usuario[0].data.username
+                }, () => console.log(this.state))
                 })
             }
         )
@@ -33,8 +34,9 @@ class UnComentario extends Component {
    render(){
         return(
             <View style={styles.containerComent}> 
-                  <Image style={styles.profilePhoto} source={{uri:this.state.foto}} resizeMode='auto'/> 
-                <Text style={styles.text}>{this.props.comment.comments}</Text> 
+                    <Image style={styles.profilePhoto} source={{uri:this.state.foto}} resizeMode='auto'/> 
+                    <Text style={styles.text}>{this.state.username} </Text>
+                    <Text style={styles.text}>{this.props.comment.comments}</Text> 
             </View>  
         )}
     }

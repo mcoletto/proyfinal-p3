@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
 import { ActivityIndicator, FlatList, StyleSheet} from 'react-native-web';
 import { db, auth } from '../firebase/config';
+import { SearchBar } from 'react-native-elements';
+
 
 class Search extends Component {
     constructor(){
@@ -44,13 +46,13 @@ class Search extends Component {
         console.log(this.state.result)
         return(
             <View>
-                <TextInput
+                <SearchBar 
+                    clearIcon='false'
                     style={styles.input}
-                        placeholder= 'Search' 
-                        keyboardType= 'default' 
-                        onChangeText= {text => this.buscar(text)} 
-                        value= {this.state.busqueda}
-                    />
+                    placeholder= 'Search' 
+                    onChangeText= {text => this.buscar(text)} 
+                    value= {this.state.busqueda}
+                />
                 {this.state.loading ? <ActivityIndicator size='large' color='green' /> : 
                     <FlatList
                         data={this.state.result}
